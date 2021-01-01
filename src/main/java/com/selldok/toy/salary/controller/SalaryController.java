@@ -1,5 +1,6 @@
 package com.selldok.toy.salary.controller;
 
+import com.selldok.toy.salary.entity.Occupation;
 import com.selldok.toy.salary.model.SalaryRequest;
 import com.selldok.toy.salary.model.SalaryResponse;
 import com.selldok.toy.salary.service.SalaryService;
@@ -19,7 +20,9 @@ public class SalaryController {
     @GetMapping("/salary")
     public ResponseEntity<SalaryResponse> tmp(SalaryRequest salaryRequest){
 
-        //TODO : salaryService를 통해서 연봉리스트 받아오기
+        if(salaryRequest.getOccupation() == null){
+            salaryRequest.setOccupation(Occupation.dotNet);
+        }
         SalaryResponse salaryResponse = salaryService.searchSalary(salaryRequest);
         return new ResponseEntity(salaryResponse, HttpStatus.OK);
     }
